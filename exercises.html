@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Exercises | Solene</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:linear-gradient(180deg,#ffffff,#ffe6f1);
+color:#333;
+overflow-x:hidden;
+}
+
+.header{
+display:flex;
+align-items:center;
+justify-content:center;
+padding:18px 40px;
+background:white;
+box-shadow:0 4px 18px rgba(0,0,0,0.05);
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+font-family:'Great Vibes',cursive;
+font-size:48px;
+color:#ff4da6;
+}
+
+.back{
+position:absolute;
+left:30px;
+font-size:28px;
+text-decoration:none;
+color:#ff4da6;
+font-weight:600;
+transition:0.3s;
+}
+
+.hero{
+text-align:center;
+padding:55px 20px 25px;
+}
+
+.hero h1{
+font-size:40px;
+margin-bottom:14px;
+color:#222;
+}
+
+.hero p{
+max-width:760px;
+margin:auto;
+color:#666;
+font-size:16px;
+line-height:1.8;
+}
+
+.container{
+max-width:1300px;
+margin:auto;
+padding:45px 20px 60px;
+}
+
+.exercise-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
+gap:30px;
+align-items:stretch;
+}
+
+.exercise{
+background:white;
+padding:30px;
+border-radius:28px;
+border:2px solid #ffd1e6;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+transition:0.35s ease;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+min-height:620px;
+}
+
+.exercise:hover{
+transform:translateY(-6px);
+box-shadow:0 16px 34px rgba(0,0,0,0.12);
+border-color:#ff4da6;
+}
+
+.exercise h2{
+font-size:30px;
+color:#ff4da6;
+margin-bottom:18px;
+}
+
+.exercise p{
+font-size:17px;
+line-height:1.9;
+color:#555;
+margin-bottom:18px;
+}
+
+.exercise-content{
+flex:1;
+}
+
+ul{
+padding-left:22px;
+margin-top:15px;
+}
+
+li{
+margin-bottom:12px;
+font-size:17px;
+line-height:1.8;
+color:#444;
+}
+
+.duration{
+margin-top:25px;
+display:inline-block;
+background:#ffe3ee;
+padding:10px 18px;
+border-radius:20px;
+font-size:15px;
+color:#ff4da6;
+font-weight:600;
+}
+
+.exercise-btn{
+margin-top:25px;
+padding:15px;
+border:none;
+border-radius:16px;
+background:linear-gradient(90deg,#ff8fbe,#ff4da6);
+color:white;
+font-size:17px;
+font-weight:500;
+cursor:pointer;
+transition:0.3s;
+width:100%;
+}
+
+.exercise-btn:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 18px rgba(255,77,166,0.25);
+}
+
+.exercise-status{
+margin-top:16px;
+display:none;
+padding:14px;
+border-radius:14px;
+background:#fff5f9;
+color:#ff4da6;
+font-size:15px;
+font-weight:500;
+}
+
+.journal-box{
+margin-top:18px;
+}
+
+textarea{
+width:100%;
+height:160px;
+padding:18px;
+border-radius:18px;
+border:2px solid #ffd6e8;
+resize:none;
+font-size:15px;
+font-family:'Poppins',sans-serif;
+outline:none;
+}
+
+textarea:focus{
+border-color:#ff4da6;
+}
+
+.save-btn{
+margin-top:18px;
+padding:14px 22px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#ff8fbe,#ff4da6);
+color:white;
+font-size:15px;
+cursor:pointer;
+font-weight:500;
+}
+
+.history-card{
+min-height:620px;
+}
+
+.journal-history{
+margin-top:20px;
+display:flex;
+flex-direction:column;
+gap:16px;
+max-height:420px;
+overflow-y:auto;
+padding-right:5px;
+}
+
+.journal-entry{
+background:#fff5f9;
+padding:16px;
+border-radius:18px;
+border-left:5px solid #ff4da6;
+position:relative;
+}
+
+.delete-entry{
+position:absolute;
+top:14px;
+right:16px;
+cursor:pointer;
+font-size:18px;
+}
+
+.journal-time{
+font-size:13px;
+color:#888;
+margin-bottom:8px;
+}
+
+.journal-text{
+font-size:16px;
+line-height:1.8;
+padding-right:25px;
+}
+
+.progress-section{
+margin-top:50px;
+background:white;
+padding:35px;
+border-radius:28px;
+border:2px solid #ffd6e8;
+box-shadow:0 10px 25px rgba(0,0,0,0.06);
+}
+
+.progress-section h2{
+color:#ff4da6;
+margin-bottom:20px;
+font-size:38px;
+}
+
+.progress-bar{
+width:100%;
+height:24px;
+background:#eee;
+border-radius:30px;
+overflow:hidden;
+margin-top:18px;
+}
+
+.progress-fill{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#ff9dc8,#ff4da6);
+transition:1s ease;
+}
+
+.progress-text{
+margin-top:15px;
+font-size:18px;
+line-height:1.8;
+color:#666;
+}
+
+.mood-check{
+margin-top:40px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:20px;
+}
+
+.mood-card{
+background:white;
+padding:28px;
+border-radius:22px;
+text-align:center;
+cursor:pointer;
+transition:0.3s;
+border:2px solid #ffe3ee;
+font-size:20px;
+}
+
+.mood-card:hover,
+.mood-card.active{
+background:#ff4da6;
+color:white;
+transform:translateY(-5px);
+}
+
+.mood-card span{
+font-size:45px;
+display:block;
+margin-bottom:14px;
+}
+
+.footer{
+text-align:center;
+padding:30px;
+font-size:15px;
+color:#777;
+}
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:999;
+padding:20px;
+}
+
+.modal-content{
+background:white;
+width:100%;
+max-width:520px;
+border-radius:30px;
+padding:35px;
+text-align:center;
+}
+
+.modal h2{
+color:#ff4da6;
+margin-bottom:20px;
+font-size:34px;
+}
+
+.modal p{
+line-height:2;
+color:#555;
+margin-bottom:16px;
+font-size:16px;
+}
+
+.breath-circle{
+width:180px;
+height:180px;
+background:linear-gradient(135deg,#ffb6d9,#ff4da6);
+border-radius:50%;
+margin:25px auto;
+animation:breathe 8s infinite;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:26px;
+font-weight:600;
+}
+
+@keyframes breathe{
+0%{transform:scale(0.8);}
+50%{transform:scale(1.15);}
+100%{transform:scale(0.8);}
+}
+
+.close-btn{
+margin-top:20px;
+padding:14px 24px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#ff7eb3,#ff4da6);
+color:white;
+font-size:15px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<a href="/dashboard" class="back">←</a>
+
+<div class="logo">Solene</div>
+
+</div>
+
+<div class="hero">
+
+<h1>Mental Wellness Exercises</h1>
+
+<p>
+These exercises support emotional balance, stress recovery,
+focus improvement, and mindfulness through psychologically calming wellness activities.
+</p>
+
+</div>
+
+<div class="container">
+
+<div class="exercise-grid">
+
+<div class="exercise">
+
+<div class="exercise-content">
+
+<h2>🌬 Deep Breathing</h2>
+
+<p>
+Calms the nervous system and reduces stress naturally.
+</p>
+
+<ul>
+<li>Inhale slowly for 4 seconds</li>
+<li>Hold for 4 seconds</li>
+<li>Exhale for 6 seconds</li>
+<li>Repeat calmly</li>
+</ul>
+
+</div>
+
+<div class="duration">2–5 minutes</div>
+
+<button class="exercise-btn"
+onclick="openExercise('breathing',this)">
+Start Guided Breathing
+</button>
+
+<div class="exercise-status">
+🌸 Exercise Completed Successfully
+</div>
+
+</div>
+
+<div class="exercise">
+
+<div class="exercise-content">
+
+<h2>🧘 Mindfulness Meditation</h2>
+
+<p>
+Improves emotional awareness and reduces mental stress.
+</p>
+
+<ul>
+<li>Relax and sit comfortably</li>
+<li>Focus gently on breathing</li>
+<li>Observe thoughts calmly</li>
+</ul>
+
+</div>
+
+<div class="duration">5–10 minutes</div>
+
+<button class="exercise-btn"
+onclick="openExercise('meditation',this)">
+Start Exercise
+</button>
+
+<div class="exercise-status">
+🌸 Exercise Completed Successfully
+</div>
+
+</div>
+
+<div class="exercise history-card">
+
+<h2>📖 Journal History</h2>
+
+<div
+class="journal-history"
+id="journalHistory">
+</div>
+
+</div>
+
+<div class="exercise">
+
+<h2>📓 Reflective Journaling</h2>
+
+<p>
+Write emotions, thoughts, stress triggers,
+and positive reflections safely.
+</p>
+
+<ul>
+<li>Write emotional experiences</li>
+<li>Describe stress triggers</li>
+<li>Write one positive thought</li>
+</ul>
+
+<div class="journal-box">
+
+<textarea
+id="journalInput"
+placeholder="Write your thoughts here..."></textarea>
+
+<button
+class="save-btn"
+onclick="saveJournal()">
+Save Journal Entry
+</button>
+
+</div>
+
+<div class="duration">5–8 minutes</div>
+
+</div>
+
+<div class="exercise">
+
+<div class="exercise-content">
+
+<h2>🚶 Movement Break</h2>
+
+<p>
+Reduces mental fatigue and improves focus recovery.
+</p>
+
+<ul>
+<li>Stretch shoulders slowly</li>
+<li>Roll neck gently</li>
+<li>Take a refreshing walk</li>
+</ul>
+
+</div>
+
+<div class="duration">3–5 minutes</div>
+
+<button class="exercise-btn"
+onclick="openExercise('movement',this)">
+Start Exercise
+</button>
+
+<div class="exercise-status">
+🌸 Exercise Completed Successfully
+</div>
+
+</div>
+
+<div class="exercise">
+
+<div class="exercise-content">
+
+<h2>🖐 Grounding Exercise</h2>
+
+<p>
+Helps calm anxious thoughts and reconnect attention.
+</p>
+
+<ul>
+<li>5 things you can see</li>
+<li>4 things you can touch</li>
+<li>3 things you can hear</li>
+<li>2 things you can smell</li>
+<li>1 thing you can taste</li>
+</ul>
+
+</div>
+
+<div class="duration">3–5 minutes</div>
+
+<button class="exercise-btn"
+onclick="openExercise('grounding',this)">
+Start Exercise
+</button>
+
+<div class="exercise-status">
+🌸 Exercise Completed Successfully
+</div>
+
+</div>
+
+</div>
+
+<div class="progress-section">
+
+<h2>🌸 Wellness Progress</h2>
+
+<p class="progress-text">
+Small consistent wellness activities may support emotional resilience,
+focus, mindfulness, and stress recovery.
+</p>
+
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+
+<p class="progress-text" id="progressText">
+0 Exercises Completed Today
+</p>
+
+<div class="mood-check">
+
+<div class="mood-card" onclick="selectMood(this)">
+<span>😊</span>
+Happy
+</div>
+
+<div class="mood-card" onclick="selectMood(this)">
+<span>😌</span>
+Calm
+</div>
+
+<div class="mood-card" onclick="selectMood(this)">
+<span>😔</span>
+Low
+</div>
+
+<div class="mood-card" onclick="selectMood(this)">
+<span>😰</span>
+Anxious
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="modal" id="exerciseModal">
+
+<div class="modal-content">
+
+<h2 id="modalTitle"></h2>
+
+<div id="modalBody"></div>
+
+<button class="close-btn" onclick="closeModal()">
+Finish Exercise
+</button>
+
+</div>
+
+</div>
+
+<div class="footer">
+Small steps every day can create lasting emotional balance 🌸
+</div>
+
+<script>
+
+let completedExercises = 0
+
+function updateProgress(){
+
+completedExercises++
+
+let fill = document.getElementById("progressFill")
+let text = document.getElementById("progressText")
+
+let percent = Math.min(completedExercises * 15,100)
+
+fill.style.width = percent + "%"
+
+text.innerHTML =
+completedExercises +
+" Exercises Completed Today"
+
+}
+
+function openExercise(type,button){
+
+window.currentButton = button
+
+const modal =
+document.getElementById("exerciseModal")
+
+const title =
+document.getElementById("modalTitle")
+
+const body =
+document.getElementById("modalBody")
+
+modal.style.display = "flex"
+
+if(type === "breathing"){
+
+title.innerHTML = "🌬 Guided Breathing"
+
+body.innerHTML = `
+<div class="breath-circle">
+Breathe
+</div>
+
+<p>
+Inhale slowly for 4 seconds.<br>
+Hold gently for 4 seconds.<br>
+Exhale slowly for 6 seconds.
+</p>
+
+<p>
+Repeat calmly for a few minutes.
+</p>
+
+<p style="font-size:14px;color:#777;">
+This wellness activity may help relaxation and stress management,
+but it is not a substitute for professional mental health treatment.
+Please consult a qualified mental health professional if emotional distress becomes severe or persistent.
+</p>
+`
+}
+
+if(type === "meditation"){
+
+title.innerHTML = "🧘 Mindfulness Meditation"
+
+body.innerHTML = `
+<p>
+Sit comfortably and relax your shoulders.<br><br>
+
+Focus on your breathing gently.<br><br>
+
+Allow thoughts to pass naturally without judgment.
+</p>
+
+<p style="font-size:14px;color:#777;">
+Mindfulness exercises may support emotional balance,
+but ongoing emotional difficulties should be discussed with a licensed professional.
+</p>
+`
+}
+
+if(type === "movement"){
+
+title.innerHTML = "🚶 Movement Break"
+
+body.innerHTML = `
+<p>
+Stretch your shoulders slowly.<br><br>
+
+Relax jaw and neck tension.<br><br>
+
+Stand up and walk briefly.<br><br>
+
+Drink some water and rest your eyes.
+</p>
+
+<p style="font-size:14px;color:#777;">
+Movement breaks may reduce fatigue and mental overload,
+but chronic exhaustion or burnout symptoms may require professional support.
+</p>
+`
+}
+
+if(type === "grounding"){
+
+title.innerHTML = "🖐 Grounding Exercise"
+
+body.innerHTML = `
+<p>
+5 things you can see<br><br>
+
+4 things you can touch<br><br>
+
+3 things you can hear<br><br>
+
+2 things you can smell<br><br>
+
+1 thing you can taste
+</p>
+
+<p style="font-size:14px;color:#777;">
+Grounding exercises may help during stress and anxiety,
+but severe anxiety symptoms should always be professionally evaluated.
+</p>
+`
+}
+
+}
+
+function closeModal(){
+
+document.getElementById(
+"exerciseModal"
+).style.display = "none"
+
+if(window.currentButton){
+
+let status =
+window.currentButton.nextElementSibling
+
+status.style.display = "block"
+
+window.currentButton.innerHTML =
+"Completed ✅"
+
+window.currentButton.disabled = true
+
+updateProgress()
+
+}
+
+}
+
+function selectMood(card){
+
+document.querySelectorAll(".mood-card")
+.forEach(c => c.classList.remove("active"))
+
+card.classList.add("active")
+
+let mood =
+card.innerText.trim()
+
+const modal =
+document.getElementById("exerciseModal")
+
+const title =
+document.getElementById("modalTitle")
+
+const body =
+document.getElementById("modalBody")
+
+modal.style.display = "flex"
+
+if(mood.includes("Happy")){
+
+title.innerHTML = "😊 Feeling Happy"
+
+body.innerHTML = `
+
+<p>
+It’s wonderful that you’re feeling emotionally positive today 🌸
+</p>
+
+<p>
+Positive emotions can improve emotional resilience,
+motivation, and mental recovery.
+</p>
+
+<p>
+Try maintaining this balance through:
+<br><br>
+• Healthy sleep
+<br>
+• Regular breaks
+<br>
+• Gratitude journaling
+<br>
+• Spending time with supportive people
+</p>
+
+<p style="font-size:14px;color:#777;">
+Solene is a wellness support application and not a substitute
+for licensed psychological or medical care.
+If emotional symptoms become severe, persistent,
+or distressing, please consult a qualified mental health professional.
+</p>
+
+`
+
+}
+
+if(mood.includes("Calm")){
+
+title.innerHTML = "😌 Feeling Calm"
+
+body.innerHTML = `
+
+<p>
+A calm emotional state may help improve focus,
+decision-making, and emotional regulation 🌿
+</p>
+
+<p>
+Maintaining mindfulness and healthy routines can support
+long-term emotional wellness.
+</p>
+
+<p>
+You may continue supporting your wellbeing through:
+<br><br>
+• Meditation
+<br>
+• Breathing exercises
+<br>
+• Balanced routines
+<br>
+• Proper rest
+</p>
+
+<p style="font-size:14px;color:#777;">
+This application provides general wellness support only
+and should not replace professional psychological advice,
+therapy, or medical treatment when needed.
+</p>
+
+`
+
+}
+
+if(mood.includes("Low")){
+
+title.innerHTML = "😔 Feeling Low"
+
+body.innerHTML = `
+
+<p>
+Feeling emotionally low at times is a normal human experience 🌸
+</p>
+
+<p>
+Gentle self-care, emotional support,
+and rest may help improve emotional balance gradually.
+</p>
+
+<p>
+Helpful practices may include:
+<br><br>
+• Journaling thoughts
+<br>
+• Taking breaks
+<br>
+• Talking to trusted people
+<br>
+• Spending time outdoors
+</p>
+
+<p style="font-size:14px;color:#777;">
+If feelings of sadness, hopelessness,
+or emotional exhaustion persist or worsen,
+please consider speaking with a licensed mental health professional.
+</p>
+
+`
+
+}
+
+if(mood.includes("Anxious")){
+
+title.innerHTML = "😰 Feeling Anxious"
+
+body.innerHTML = `
+
+<p>
+Anxiety and emotional overwhelm can sometimes affect
+focus, sleep, and daily wellbeing.
+</p>
+
+<p>
+Grounding techniques and calming exercises may help
+reduce immediate stress responses 🌿
+</p>
+
+<p>
+You may try:
+<br><br>
+• Deep breathing
+<br>
+• Grounding exercises
+<br>
+• Limiting overstimulation
+<br>
+• Taking short mindful breaks
+</p>
+
+<p style="font-size:14px;color:#777;">
+This wellness application does not replace professional care.
+If anxiety symptoms become intense, frequent,
+or interfere with daily functioning,
+please consult a qualified psychologist,
+psychiatrist, or healthcare professional.
+</p>
+
+`
+
+}
+
+}
+
+function saveJournal(){
+
+let input =
+document.getElementById("journalInput")
+
+if(input.value.trim() === ""){
+return
+}
+
+let history =
+JSON.parse(localStorage.getItem("soleneJournal")) || []
+
+history.unshift({
+text: input.value,
+time: new Date().toLocaleString()
+})
+
+localStorage.setItem(
+"soleneJournal",
+JSON.stringify(history)
+)
+
+input.value = ""
+
+loadJournal()
+
+}
+
+function deleteJournal(index){
+
+let history =
+JSON.parse(localStorage.getItem("soleneJournal")) || []
+
+history.splice(index,1)
+
+localStorage.setItem(
+"soleneJournal",
+JSON.stringify(history)
+)
+
+loadJournal()
+
+}
+
+function loadJournal(){
+
+let container =
+document.getElementById("journalHistory")
+
+let history =
+JSON.parse(localStorage.getItem("soleneJournal")) || []
+
+container.innerHTML = ""
+
+history.forEach((entry,index)=>{
+
+container.innerHTML += `
+
+<div class="journal-entry">
+
+<div
+class="delete-entry"
+onclick="deleteJournal(${index})">
+
+🗑️
+
+</div>
+
+<div class="journal-time">
+${entry.time}
+</div>
+
+<div class="journal-text">
+${entry.text}
+</div>
+
+</div>
+
+`
+
+})
+
+}
+
+window.onload = loadJournal
+
+</script>
+
+</body>
+</html>

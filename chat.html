@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Solene AI Wellness Assistant</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:linear-gradient(135deg,#fff0f6,#ffe0ec,#fff8fb);
+padding:15px;
+overflow:hidden;
+}
+
+.chat-wrapper{
+width:100%;
+max-width:500px;
+height:95vh;
+background:white;
+border-radius:28px;
+box-shadow:0px 18px 40px rgba(0,0,0,0.12);
+display:flex;
+flex-direction:column;
+overflow:hidden;
+position:relative;
+}
+
+.header{
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:18px;
+background:white;
+border-bottom:1px solid #f3f3f3;
+}
+
+.logo{
+font-family:'Great Vibes', cursive;
+font-size:48px;
+color:#ff4da6;
+}
+
+.back-btn{
+position:absolute;
+left:22px;
+font-size:28px;
+text-decoration:none;
+color:#ff4da6;
+font-weight:600;
+transition:0.3s;
+}
+
+.back-btn:hover{
+transform:translateX(-4px);
+}
+
+.status{
+position:absolute;
+right:20px;
+font-size:12px;
+color:#55c271;
+font-weight:500;
+}
+
+.chat-area{
+flex:1;
+padding:20px;
+overflow-y:auto;
+display:flex;
+flex-direction:column;
+gap:18px;
+background:linear-gradient(135deg,#ffe6f0,#ffd6ea,#fff5fa);
+scroll-behavior:smooth;
+}
+
+.message{
+display:flex;
+gap:10px;
+align-items:flex-end;
+animation:fadeIn 0.25s ease;
+}
+
+.bot{
+justify-content:flex-start;
+}
+
+.user{
+justify-content:flex-end;
+}
+
+.avatar{
+width:40px;
+height:40px;
+border-radius:50%;
+object-fit:cover;
+box-shadow:0px 3px 10px rgba(0,0,0,0.12);
+}
+
+.bot-bubble{
+background:white;
+padding:14px 16px;
+border-radius:18px 18px 18px 6px;
+max-width:78%;
+font-size:14px;
+line-height:1.8;
+color:#333;
+box-shadow:0px 5px 15px rgba(0,0,0,0.06);
+word-wrap:break-word;
+}
+
+.user-bubble{
+background:linear-gradient(90deg,#ff7eb3,#ff4da6);
+color:white;
+padding:14px 16px;
+border-radius:18px 18px 6px 18px;
+max-width:78%;
+font-size:14px;
+line-height:1.8;
+box-shadow:0px 5px 15px rgba(255,77,166,0.25);
+word-wrap:break-word;
+}
+
+.time{
+font-size:10px;
+margin-top:6px;
+opacity:0.7;
+}
+
+.suggestions{
+padding:12px 14px;
+display:flex;
+gap:10px;
+overflow-x:auto;
+background:#fff;
+border-top:1px solid #f2f2f2;
+}
+
+.suggestions::-webkit-scrollbar{
+display:none;
+}
+
+.suggestion-chip{
+padding:10px 16px;
+background:#fff0f6;
+border:1px solid #ffd2e6;
+border-radius:30px;
+font-size:12px;
+white-space:nowrap;
+cursor:pointer;
+transition:0.3s;
+color:#ff4da6;
+font-weight:500;
+}
+
+.suggestion-chip:hover{
+background:#ff4da6;
+color:white;
+}
+
+.input-area{
+display:flex;
+padding:14px;
+gap:10px;
+background:white;
+border-top:1px solid #f2f2f2;
+}
+
+.input-area input{
+flex:1;
+padding:14px 16px;
+border-radius:16px;
+border:1px solid #e5e5e5;
+font-size:14px;
+outline:none;
+transition:0.3s;
+}
+
+.input-area input:focus{
+border-color:#ff4da6;
+box-shadow:0px 0px 10px rgba(255,77,166,0.15);
+}
+
+.input-area button{
+padding:13px 20px;
+background:linear-gradient(90deg,#ff7eb3,#ff4da6);
+border:none;
+color:white;
+border-radius:16px;
+cursor:pointer;
+font-weight:500;
+transition:0.3s;
+}
+
+.input-area button:hover{
+transform:translateY(-2px);
+box-shadow:0px 8px 18px rgba(255,77,166,0.25);
+}
+
+.typing{
+display:flex;
+gap:5px;
+padding:12px 15px;
+background:white;
+border-radius:15px;
+box-shadow:0px 4px 12px rgba(0,0,0,0.06);
+}
+
+.dot{
+width:7px;
+height:7px;
+background:#999;
+border-radius:50%;
+animation:blink 1.4s infinite;
+}
+
+.dot:nth-child(2){
+animation-delay:0.2s;
+}
+
+.dot:nth-child(3){
+animation-delay:0.4s;
+}
+
+.wellness-banner{
+padding:14px;
+background:linear-gradient(90deg,#fff0f6,#ffe0ee);
+font-size:12px;
+text-align:center;
+color:#666;
+line-height:1.7;
+border-bottom:1px solid #f5d7e6;
+}
+
+@keyframes blink{
+0%{opacity:0.2;}
+50%{opacity:1;}
+100%{opacity:0.2;}
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(8px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@media(max-width:600px){
+
+.chat-wrapper{
+height:100vh;
+border-radius:0;
+max-width:100%;
+}
+
+.chat-area{
+padding:15px;
+}
+
+.bot-bubble,
+.user-bubble{
+max-width:84%;
+font-size:13px;
+}
+
+.logo{
+font-size:40px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="chat-wrapper">
+
+<div class="header">
+
+<a href="/dashboard" class="back-btn">←</a>
+
+<div class="logo">Solene</div>
+
+<div class="status">
+● Active
+</div>
+
+</div>
+
+<div class="wellness-banner">
+
+🌸 Your conversations matter. Solene provides emotional wellness support, calming techniques, burnout guidance, and mental health resources.
+
+</div>
+
+<div class="chat-area" id="chatArea">
+
+<div class="message bot">
+
+<img src="{{ url_for('static', filename='images/Solene.jpeg') }}" class="avatar">
+
+<div class="bot-bubble">
+
+Hello, I'm Solene 🌸<br><br>
+
+I'm here to support your emotional wellbeing.<br>
+You can talk to me about stress, burnout, anxiety, sleep, studies, emotions, or anything on your mind 💛
+
+<div class="time" id="startTime"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="suggestions">
+
+<div class="suggestion-chip" onclick="quickMessage('I feel stressed lately')">
+Stress Relief
+</div>
+
+<div class="suggestion-chip" onclick="quickMessage('I feel anxious')">
+Anxiety Help
+</div>
+
+<div class="suggestion-chip" onclick="quickMessage('Sleep improvement tips')">
+Sleep Tips
+</div>
+
+<div class="suggestion-chip" onclick="quickMessage('Motivation support')">
+Motivation
+</div>
+
+<div class="suggestion-chip" onclick="quickMessage('Calming exercises')">
+Calming Exercises
+</div>
+
+</div>
+
+<div class="input-area">
+
+<input
+id="userInput"
+placeholder="Share your thoughts..."
+autocomplete="off"
+>
+
+<button onclick="sendMessage()">
+Send
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+let chat = document.getElementById("chatArea")
+
+document.getElementById("startTime").innerHTML =
+new Date().toLocaleTimeString([], {
+hour: '2-digit',
+minute: '2-digit'
+})
+
+function currentTime(){
+
+return new Date().toLocaleTimeString([], {
+hour:'2-digit',
+minute:'2-digit'
+})
+
+}
+
+function quickMessage(text){
+
+document.getElementById("userInput").value = text
+
+sendMessage()
+
+}
+
+async function sendMessage(){
+
+let input = document.getElementById("userInput")
+
+let text = input.value.trim()
+
+if(text === "") return
+
+let userMsg = document.createElement("div")
+
+userMsg.className = "message user"
+
+userMsg.innerHTML = `
+
+<div class="user-bubble">
+
+${text}
+
+<div class="time">${currentTime()}</div>
+
+</div>
+
+<img src="{{ url_for('static', filename='images/User.png') }}" class="avatar">
+
+`
+
+chat.appendChild(userMsg)
+
+input.value = ""
+
+autoScroll()
+
+showTyping()
+
+try{
+
+let response = await fetch("/chatbot", {
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+message:text
+})
+
+})
+
+let data = await response.json()
+
+removeTyping()
+
+botMessage(data.reply)
+
+}
+catch(error){
+
+removeTyping()
+
+botMessage("⚠️ Something went wrong. Please try again.")
+
+}
+
+}
+
+function botMessage(text){
+
+let msg = document.createElement("div")
+
+msg.className = "message bot"
+
+let bubble = document.createElement("div")
+
+bubble.className = "bot-bubble"
+
+msg.innerHTML = `
+
+<img src="{{ url_for('static', filename='images/Solene.jpeg') }}" class="avatar">
+
+`
+
+msg.appendChild(bubble)
+
+chat.appendChild(msg)
+
+streamText(text, bubble)
+
+autoScroll()
+
+}
+
+function streamText(text, container){
+
+let formattedText = text.replace(/\n/g, "<br>")
+
+let i = 0
+
+let interval = setInterval(() => {
+
+container.innerHTML = formattedText.substring(0, i)
+
++ `<div class="time">${currentTime()}</div>`
+
+i++
+
+if(i > formattedText.length){
+
+clearInterval(interval)
+
+}
+
+autoScroll()
+
+}, 10)
+
+}
+
+function autoScroll(){
+
+chat.scrollTop = chat.scrollHeight
+
+}
+
+document.getElementById("userInput")
+.addEventListener("keydown", function(e){
+
+if(e.key === "Enter"){
+
+e.preventDefault()
+
+sendMessage()
+
+}
+
+})
+
+function showTyping(){
+
+let typing = document.createElement("div")
+
+typing.className = "message bot"
+
+typing.id = "typing"
+
+typing.innerHTML = `
+
+<img src="{{ url_for('static', filename='images/Solene.jpeg') }}" class="avatar">
+
+<div class="typing">
+
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+
+</div>
+
+`
+
+chat.appendChild(typing)
+
+autoScroll()
+
+}
+
+function removeTyping(){
+
+let t = document.getElementById("typing")
+
+if(t){
+t.remove()
+}
+
+}
+
+</script>
+
+</body>
+
+</html>

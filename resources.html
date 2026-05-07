@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Wellness Guides | Solene</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:linear-gradient(180deg,#ffffff,#ffe4ef);
+color:#333;
+overflow-x:hidden;
+}
+
+.header{
+display:flex;
+justify-content:center;
+align-items:center;
+padding:18px 40px;
+background:white;
+box-shadow:0 4px 15px rgba(0,0,0,0.05);
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+font-family:'Great Vibes',cursive;
+font-size:46px;
+color:#ff4da6;
+}
+
+.back{
+position:absolute;
+left:28px;
+text-decoration:none;
+font-size:28px;
+color:#ff4da6;
+font-weight:600;
+transition:0.3s;
+}
+
+.back:hover{
+transform:translateX(-3px);
+}
+
+.container{
+max-width:1150px;
+margin:auto;
+padding:50px 20px 60px;
+}
+
+.hero{
+text-align:center;
+margin-bottom:45px;
+}
+
+.hero h1{
+font-size:40px;
+margin-bottom:14px;
+color:#222;
+}
+
+.hero p{
+max-width:760px;
+margin:auto;
+font-size:16px;
+line-height:1.8;
+color:#666;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:24px;
+margin-bottom:55px;
+}
+
+.stat-card{
+background:white;
+padding:30px 24px;
+border-radius:20px;
+text-align:center;
+border:2px solid #ffe3ee;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:0.3s ease;
+position:relative;
+overflow:hidden;
+}
+
+.stat-card::before{
+content:'';
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,0.45),
+transparent
+);
+transition:0.7s;
+}
+
+.stat-card:hover::before{
+left:100%;
+}
+
+.stat-card:hover{
+transform:translateY(-6px);
+box-shadow:0 16px 35px rgba(255,77,166,0.18);
+border-color:#ff4da6;
+}
+
+.stat-number{
+font-size:42px;
+color:#ff4da6;
+font-weight:600;
+margin-bottom:10px;
+}
+
+.stat-card p{
+font-size:14px;
+line-height:1.7;
+color:#555;
+}
+
+.accordion{
+background:white;
+margin-bottom:20px;
+border-radius:18px;
+border:2px solid #ffe3ee;
+box-shadow:0 6px 15px rgba(0,0,0,0.08);
+overflow:hidden;
+transition:0.3s;
+}
+
+.accordion:hover{
+border-color:#ff4da6;
+}
+
+.accordion-header{
+padding:20px 24px;
+cursor:pointer;
+font-weight:600;
+background:#fff;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:17px;
+color:#222;
+}
+
+.accordion-header span{
+font-size:22px;
+color:#ff4da6;
+transition:0.3s;
+}
+
+.accordion.active .accordion-header span{
+transform:rotate(45deg);
+}
+
+.accordion-content{
+max-height:0;
+overflow:hidden;
+transition:max-height 0.4s ease;
+padding:0 24px;
+}
+
+.accordion-content-inner{
+padding-bottom:24px;
+}
+
+.accordion-content p{
+line-height:1.9;
+color:#444;
+margin-bottom:16px;
+font-size:15px;
+}
+
+ul{
+padding-left:20px;
+}
+
+li{
+margin-bottom:10px;
+line-height:1.7;
+font-size:15px;
+color:#444;
+}
+
+.footer{
+text-align:center;
+margin-top:45px;
+font-size:14px;
+color:#777;
+}
+
+.interactive-section{
+margin-top:50px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:28px;
+}
+
+.interactive-card{
+background:white;
+padding:30px;
+border-radius:22px;
+border:2px solid #ffe3ee;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.interactive-card:hover{
+transform:translateY(-5px);
+box-shadow:0 18px 35px rgba(255,77,166,0.15);
+border-color:#ff4da6;
+}
+
+.interactive-card h3{
+font-size:24px;
+color:#ff4da6;
+margin-bottom:18px;
+}
+
+.quiz-question{
+font-size:16px;
+line-height:1.8;
+margin-bottom:20px;
+color:#444;
+}
+
+.quiz-options{
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+.quiz-btn{
+padding:14px;
+border:none;
+border-radius:14px;
+background:#fff3f8;
+cursor:pointer;
+font-size:15px;
+font-weight:500;
+transition:0.3s;
+}
+
+.quiz-btn:hover{
+background:#ff4da6;
+color:white;
+}
+
+.result-box{
+margin-top:20px;
+padding:18px;
+border-radius:16px;
+background:#fff7fb;
+line-height:1.9;
+display:none;
+}
+
+.breathing-circle{
+width:170px;
+height:170px;
+border-radius:50%;
+background:linear-gradient(135deg,#ffc1da,#ff4da6);
+margin:25px auto;
+animation:breathe 5s infinite ease-in-out;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+font-size:20px;
+font-weight:600;
+box-shadow:0 10px 30px rgba(255,77,166,0.3);
+}
+
+@keyframes breathe{
+
+0%{
+transform:scale(0.9);
+}
+
+50%{
+transform:scale(1.1);
+}
+
+100%{
+transform:scale(0.9);
+}
+
+}
+
+.tip-generator{
+margin-top:18px;
+padding:14px;
+background:#fff0f6;
+border-radius:14px;
+font-size:15px;
+line-height:1.8;
+display:none;
+}
+
+.tip-btn{
+margin-top:14px;
+padding:13px 18px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#ff7eb3,#ff4da6);
+color:white;
+cursor:pointer;
+font-weight:500;
+transition:0.3s;
+}
+
+.tip-btn:hover{
+transform:translateY(-2px);
+}
+
+.progress-bar{
+width:100%;
+height:22px;
+background:#eee;
+border-radius:20px;
+overflow:hidden;
+margin-top:18px;
+}
+
+.progress-fill{
+height:100%;
+width:30%;
+background:linear-gradient(90deg,#ff9ac7,#ff4da6);
+border-radius:20px;
+transition:width 0.6s ease;
+}
+
+@keyframes progressMove{
+
+from{
+width:0;
+}
+
+to{
+width:72%;
+}
+
+}
+
+.did-you-know{
+margin-top:45px;
+background:white;
+padding:30px;
+border-radius:22px;
+border:2px solid #ffe3ee;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.did-you-know h2{
+color:#ff4da6;
+margin-bottom:20px;
+}
+
+.fact-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.fact-card{
+background:#fff5f9;
+padding:22px;
+border-radius:18px;
+transition:0.3s;
+}
+
+.fact-card:hover{
+transform:translateY(-5px);
+background:#ffe6f1;
+}
+
+.fact-card h4{
+margin-bottom:10px;
+color:#ff4da6;
+}
+
+.fact-card p{
+font-size:14px;
+line-height:1.8;
+color:#555;
+}
+
+@media(max-width:768px){
+
+.interactive-section{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:768px){
+
+.header{
+padding:16px 20px;
+}
+
+.logo{
+font-size:40px;
+}
+
+.back{
+left:20px;
+font-size:24px;
+}
+
+.container{
+padding:40px 16px 45px;
+}
+
+.hero h1{
+font-size:30px;
+}
+
+.hero p{
+font-size:14px;
+line-height:1.7;
+}
+
+.stat-card{
+padding:25px 20px;
+border-radius:18px;
+}
+
+.stat-number{
+font-size:36px;
+}
+
+.accordion-header{
+padding:18px;
+font-size:15px;
+}
+
+.accordion-content{
+padding:0 18px;
+}
+
+.accordion-content p,
+li{
+font-size:14px;
+line-height:1.8;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<a href="/dashboard" class="back">
+←
+</a>
+
+<div class="logo">
+Solene
+</div>
+
+</div>
+
+<div class="container">
+
+<div class="hero">
+
+<h1>
+Understanding Stress & Burnout
+</h1>
+
+<p>
+Learn about the causes, symptoms, effects, and management of stress and burnout through simple wellness guides and mental health awareness resources.
+</p>
+
+</div>
+
+<div class="stats">
+
+<div class="stat-card">
+
+<div class="stat-number">
+77%
+</div>
+
+<p>
+People regularly experience physical symptoms caused by stress.
+</p>
+
+</div>
+
+<div class="stat-card">
+
+<div class="stat-number">
+83%
+</div>
+
+<p>
+Workers report experiencing work-related stress and emotional exhaustion.
+</p>
+
+</div>
+
+<div class="stat-card">
+
+<div class="stat-number">
+48%
+</div>
+
+<p>
+Individuals experience sleep difficulties due to mental stress and anxiety.
+</p>
+
+</div>
+
+<div class="stat-card">
+
+<div class="stat-number">
+60%
+</div>
+
+<p>
+Burnout is commonly linked with prolonged workload and emotional pressure.
+</p>
+
+</div>
+
+</div>
+
+<div class="accordion">
+
+<div class="accordion-header">
+
+<div>
+🧠 What is Stress?
+</div>
+
+<span>+</span>
+
+</div>
+
+<div class="accordion-content">
+
+<div class="accordion-content-inner">
+
+<p>
+Stress is the body’s natural psychological and physiological response to situations that require attention or action. When individuals face challenging demands such as work pressure, academic expectations, or personal responsibilities, the brain releases stress hormones like cortisol and adrenaline.
+</p>
+
+<p>
+In small amounts, stress can improve focus, alertness, and performance. However, prolonged or excessive stress can negatively affect emotional wellbeing, physical health, and mental clarity.
+</p>
+
+<p>
+Long-term stress may contribute to anxiety, fatigue, sleep disturbances, reduced concentration, emotional exhaustion, and decreased productivity.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion">
+
+<div class="accordion-header">
+
+<div>
+⚠ Common Causes of Stress
+</div>
+
+<span>+</span>
+
+</div>
+
+<div class="accordion-content">
+
+<div class="accordion-content-inner">
+
+<p>
+Stress can arise from different aspects of everyday life. Some stressors are temporary, while others may persist for long periods and gradually contribute to emotional exhaustion.
+</p>
+
+<ul>
+
+<li>High workload or academic pressure</li>
+
+<li>Deadlines, exams, and performance expectations</li>
+
+<li>Financial difficulties or job insecurity</li>
+
+<li>Lack of sleep and unhealthy lifestyle habits</li>
+
+<li>Major life transitions and uncertainty</li>
+
+<li>Relationship conflicts or social pressure</li>
+
+</ul>
+
+<p>
+Recognizing the root causes of stress is often the first step toward developing healthier coping strategies and emotional balance.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion">
+
+<div class="accordion-header">
+
+<div>
+🔥 Signs of Burnout
+</div>
+
+<span>+</span>
+
+</div>
+
+<div class="accordion-content">
+
+<div class="accordion-content-inner">
+
+<p>
+Burnout is a psychological condition caused by prolonged emotional, mental, and physical stress. It is especially common in highly demanding academic or professional environments.
+</p>
+
+<p>
+According to the World Health Organization, burnout involves emotional exhaustion, reduced effectiveness, and mental detachment from responsibilities.
+</p>
+
+<ul>
+
+<li>Persistent fatigue and low energy</li>
+
+<li>Loss of motivation or enthusiasm</li>
+
+<li>Difficulty concentrating or making decisions</li>
+
+<li>Feeling emotionally overwhelmed</li>
+
+<li>Reduced productivity and performance</li>
+
+<li>Withdrawal from social or personal activities</li>
+
+</ul>
+
+<p>
+Identifying early symptoms of burnout can help individuals seek support and restore emotional wellbeing before the condition worsens.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion">
+
+<div class="accordion-header">
+
+<div>
+💡 Advice from Experts
+</div>
+
+<span>+</span>
+
+</div>
+
+<div class="accordion-content">
+
+<div class="accordion-content-inner">
+
+<p>
+Mental health experts emphasize the importance of managing stress through mindfulness, emotional awareness, healthy routines, and balanced thinking.
+</p>
+
+<p>
+Research by psychologist <b>Dr. Kelly McGonigal</b> suggests that viewing stress as a challenge instead of a threat can improve resilience and performance under pressure.
+</p>
+
+<p>
+Mindfulness expert <b>Dr. Jon Kabat-Zinn</b> highlights the benefits of breathing exercises, meditation, and present-moment awareness for emotional regulation and stress reduction.
+</p>
+
+<p>
+Experts also recommend prioritizing sleep, physical movement, hydration, social support, and self-care practices for long-term mental wellness.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion">
+
+<div class="accordion-header">
+
+<div>
+🌸 Ways to Reduce Stress
+</div>
+
+<span>+</span>
+
+</div>
+
+<div class="accordion-content">
+
+<div class="accordion-content-inner">
+
+<p>
+Managing stress effectively involves small but consistent daily habits that improve emotional balance and mental clarity.
+</p>
+
+<ul>
+
+<li>Break large tasks into smaller manageable goals</li>
+
+<li>Practice breathing exercises or mindfulness meditation</li>
+
+<li>Take short breaks during work or study</li>
+
+<li>Use time management techniques like the Pomodoro method</li>
+
+<li>Engage in regular physical activity</li>
+
+<li>Maintain healthy sleep patterns</li>
+
+<li>Talk openly with trusted friends or mentors</li>
+
+</ul>
+
+<p>
+Even small improvements in routine and self-care can significantly improve resilience and emotional wellbeing over time.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="interactive-section">
+
+<div class="interactive-card">
+
+<h3>
+🧠 Quick Stress Self-Check
+</h3>
+
+<div class="quiz-question">
+
+How often do you feel mentally overwhelmed during the week?
+
+</div>
+
+<div class="quiz-options">
+
+<button class="quiz-btn" onclick="showResult('low')">
+Rarely
+</button>
+
+<button class="quiz-btn" onclick="showResult('moderate')">
+Sometimes
+</button>
+
+<button class="quiz-btn" onclick="showResult('high')">
+Very Frequently
+</button>
+
+</div>
+
+<div class="result-box" id="quizResult">
+🌸 Small emotional check-ins can improve self-awareness and stress management.
+</div>
+
+</div>
+
+<div class="interactive-card">
+
+<h3>
+🌬 Guided Breathing Exercise
+</h3>
+
+<p style="line-height:1.9;color:#555;">
+
+Follow the breathing animation slowly for one minute to relax your nervous system and calm mental stress.
+
+</p>
+
+<div class="breathing-circle">
+Breathe
+</div>
+
+</div>
+
+</div>
+
+<div class="did-you-know">
+
+<h2>
+💡 Psychology & Wellness Facts
+</h2>
+
+<div class="fact-grid">
+
+<div class="fact-card">
+
+<h4>
+Stress & Memory
+</h4>
+
+<p>
+High cortisol levels caused by prolonged stress may affect concentration and memory retention.
+</p>
+
+</div>
+
+<div class="fact-card">
+
+<h4>
+Sleep Recovery
+</h4>
+
+<p>
+Consistent sleep schedules improve emotional regulation and mental recovery significantly.
+</p>
+
+</div>
+
+<div class="fact-card">
+
+<h4>
+Movement & Mood
+</h4>
+
+<p>
+Physical activity releases endorphins which naturally support emotional wellbeing and stress reduction.
+</p>
+
+</div>
+
+<div class="fact-card">
+
+<h4>
+Mindfulness
+</h4>
+
+<p>
+Mindfulness practices help reduce overthinking and improve present-moment awareness.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="interactive-card" style="margin-top:45px;">
+
+<h3>
+🌸 Personalized Wellness Tip
+</h3>
+
+<p style="line-height:1.9;color:#555;">
+
+Generate calming wellness suggestions and healthy coping strategies.
+
+</p>
+
+<button class="tip-btn" onclick="generateTip()">
+Generate Wellness Tip
+</button>
+
+<div class="tip-generator" id="tipBox">
+Take a few deep breaths and allow yourself a short mental break 🌿
+</div>
+
+<div class="progress-bar">
+
+<div class="progress-fill"></div>
+
+</div>
+
+<p style="margin-top:15px;color:#666;">
+Mental recovery improves gradually through consistency and self-care.
+</p>
+
+</div>
+
+<div class="footer">
+Mental wellness begins with awareness, balance, and self-care 🌸
+</div>
+
+</div>
+
+<script>
+
+const accordions = document.querySelectorAll(".accordion")
+
+accordions.forEach(item => {
+
+const header = item.querySelector(".accordion-header")
+
+header.addEventListener("click", () => {
+
+const content = item.querySelector(".accordion-content")
+
+if(content.style.maxHeight){
+
+content.style.maxHeight = null
+
+item.classList.remove("active")
+
+}
+else{
+
+document.querySelectorAll(".accordion-content").forEach(c => {
+c.style.maxHeight = null
+})
+
+document.querySelectorAll(".accordion").forEach(a => {
+a.classList.remove("active")
+})
+
+content.style.maxHeight = content.scrollHeight + "px"
+
+item.classList.add("active")
+
+}
+
+})
+
+})
+
+</script>
+
+<script>
+
+function showResult(level){
+
+let box =
+document.getElementById("quizResult")
+
+let progress =
+document.querySelector(".progress-fill")
+
+box.style.display = "block"
+
+if(level === "low"){
+
+box.innerHTML =
+"🌸 Your responses suggest manageable stress levels. Maintaining healthy routines and emotional balance can help prevent burnout."
+
+progress.style.width = "30%"
+
+}
+
+else if(level === "moderate"){
+
+box.innerHTML =
+"💛 Moderate stress is common during demanding periods. Regular breaks, mindfulness, and proper sleep may help improve emotional wellbeing."
+
+progress.style.width = "65%"
+
+}
+
+else{
+
+box.innerHTML =
+"🌿 Frequent emotional overwhelm may indicate high stress or burnout. Consider self-care strategies and professional support if stress continues affecting daily life."
+
+progress.style.width = "90%"
+
+}
+
+}
+
+const tips = [
+
+"🌸 Take a 5-minute break away from screens and focus on slow breathing.",
+
+"💧 Hydration and proper sleep significantly improve emotional balance and focus.",
+
+"🧘 Short mindfulness exercises may help calm racing thoughts and anxiety.",
+
+"🌿 Taking small breaks during work or study reduces emotional exhaustion.",
+
+"🌙 Consistent sleep timing helps improve emotional recovery and concentration.",
+
+"💛 Speaking openly with supportive people can reduce emotional pressure."
+
+]
+
+function generateTip(){
+
+let randomTip =
+tips[Math.floor(Math.random() * tips.length)]
+
+let box =
+document.getElementById("tipBox")
+
+box.style.display = "block"
+
+box.innerHTML = randomTip
+
+}
+
+</script>
+
+</body>
+</html>

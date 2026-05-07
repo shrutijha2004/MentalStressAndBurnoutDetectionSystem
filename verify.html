@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Verify OTP | Solene</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(180deg,#ffffff,#ffe0ec);
+padding:20px;
+overflow:hidden;
+}
+
+.container{
+text-align:center;
+width:100%;
+max-width:440px;
+padding:45px 35px;
+background:white;
+border-radius:28px;
+box-shadow:0px 18px 45px rgba(0,0,0,0.08);
+animation:fadeIn 0.7s ease;
+}
+
+.logo{
+font-family:'Great Vibes', cursive;
+font-size:72px;
+color:#ff4da6;
+margin-bottom:8px;
+}
+
+.title{
+font-size:24px;
+font-weight:600;
+color:#333;
+margin-bottom:10px;
+}
+
+.subtitle{
+font-size:15px;
+color:#777;
+margin-bottom:30px;
+line-height:1.8;
+}
+
+.error{
+background:#ffe6e6;
+color:#d60000;
+padding:12px;
+border-radius:12px;
+font-size:14px;
+margin-bottom:18px;
+}
+
+.success{
+background:#e8fff0;
+color:#16994f;
+padding:12px;
+border-radius:12px;
+font-size:14px;
+margin-bottom:18px;
+}
+
+.otp-box{
+display:flex;
+justify-content:center;
+gap:12px;
+margin-bottom:25px;
+}
+
+.otp-box input{
+width:62px;
+height:62px;
+font-size:24px;
+font-weight:600;
+text-align:center;
+border:2px solid #e8e8e8;
+border-radius:18px;
+transition:0.3s;
+outline:none;
+background:white;
+}
+
+.otp-box input:focus{
+border-color:#ff4da6;
+box-shadow:0px 0px 12px rgba(255,77,166,0.18);
+transform:translateY(-2px);
+}
+
+button{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+font-size:16px;
+font-weight:500;
+color:white;
+background:linear-gradient(90deg,#f8b6c8,#ff4da6);
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:translateY(-2px);
+box-shadow:0px 8px 18px rgba(255,77,166,0.3);
+}
+
+.timer{
+margin-top:18px;
+font-size:14px;
+color:#777;
+}
+
+.resend{
+margin-top:15px;
+font-size:14px;
+color:#ff4da6;
+cursor:pointer;
+font-weight:500;
+transition:0.3s;
+display:none;
+}
+
+.resend:hover{
+text-decoration:underline;
+}
+
+.note{
+margin-top:20px;
+font-size:13px;
+color:#888;
+line-height:1.8;
+}
+
+.back{
+display:inline-block;
+margin-top:22px;
+font-size:15px;
+color:#ff4da6;
+text-decoration:none;
+font-weight:500;
+}
+
+.back:hover{
+text-decoration:underline;
+}
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(15px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+@media(max-width:600px){
+
+.container{
+padding:35px 24px;
+border-radius:22px;
+}
+
+.logo{
+font-size:60px;
+}
+
+.otp-box{
+gap:10px;
+}
+
+.otp-box input{
+width:54px;
+height:54px;
+font-size:20px;
+border-radius:15px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+Solene
+</div>
+
+<div class="title">
+OTP Verification
+</div>
+
+<div class="subtitle">
+
+Enter the secure 4-digit verification code sent to your registered email or phone number 🌸
+
+</div>
+
+{% if error %}
+
+<div class="error">
+{{ error }}
+</div>
+
+{% endif %}
+
+{% if success %}
+
+<div class="success">
+{{ success }}
+</div>
+
+{% endif %}
+
+<form action="/verify" method="post" onsubmit="combineOTP()">
+
+<div class="otp-box">
+
+<input
+id="d1"
+maxlength="1"
+inputmode="numeric"
+required
+>
+
+<input
+id="d2"
+maxlength="1"
+inputmode="numeric"
+required
+>
+
+<input
+id="d3"
+maxlength="1"
+inputmode="numeric"
+required
+>
+
+<input
+id="d4"
+maxlength="1"
+inputmode="numeric"
+required
+>
+
+</div>
+
+<input
+type="hidden"
+name="otp"
+id="otp"
+>
+
+<button type="submit">
+
+Verify OTP
+
+</button>
+
+</form>
+
+<div class="timer">
+
+OTP expires in <span id="countdown">60</span>s
+
+</div>
+
+<div class="resend" id="resendBtn">
+
+Resend OTP
+
+</div>
+
+<div class="note">
+
+🌿 Demo OTP appears in terminal during local development.
+
+</div>
+
+<a class="back" href="/">
+
+Back to Login
+
+</a>
+
+</div>
+
+<script>
+
+const inputs = document.querySelectorAll(".otp-box input")
+
+inputs.forEach((input, index) => {
+
+input.addEventListener("input", () => {
+
+if(input.value.length === 1 && index < inputs.length - 1){
+
+inputs[index + 1].focus()
+
+}
+
+})
+
+input.addEventListener("keydown", (e) => {
+
+if(e.key === "Backspace" && input.value === "" && index > 0){
+
+inputs[index - 1].focus()
+
+}
+
+})
+
+})
+
+function combineOTP(){
+
+let otp = ""
+
+inputs.forEach(input => {
+
+otp += input.value
+
+})
+
+document.getElementById("otp").value = otp
+
+}
+
+let timeLeft = 60
+
+let countdown = document.getElementById("countdown")
+
+let resendBtn = document.getElementById("resendBtn")
+
+let timer = setInterval(() => {
+
+timeLeft--
+
+countdown.innerHTML = timeLeft
+
+if(timeLeft <= 0){
+
+clearInterval(timer)
+
+countdown.innerHTML = "0"
+
+resendBtn.style.display = "block"
+
+}
+
+}, 1000)
+
+resendBtn.onclick = () => {
+
+location.reload()
+
+}
+
+</script>
+
+</body>
+
+</html>
