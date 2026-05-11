@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 app.secret_key = "solene_secret_key"
 
-API_KEY = "AIzaSyDAnIa5pVL8RM-nGoD3CZA4efRONQpTieM"
+API_KEY = "Your API Key"
 
 model_genai = None
 
