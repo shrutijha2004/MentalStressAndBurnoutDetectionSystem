@@ -89,44 +89,6 @@ Solene is designed to create a calm, interactive, and supportive mental wellness
 
 ---
 
-# 📂 Project Structure
-
-Solene/
-│
-├── static/
-│   ├── css/
-│   ├── js/
-│   └── images/
-│
-├── templates/
-│   ├── login.html
-│   ├── create_account.html
-│   ├── verify.html
-│   ├── dashboard.html
-│   ├── chat.html
-│   ├── exercises.html
-│   ├── resources.html
-│   ├── result.html
-│   └── index.html
-│
-├── Model/
-│   └── stress_model.pkl
-│
-├── app.py
-├── requirements.txt
-└── README.md
-```
-
----
-
-# ⚙️ Installation & Setup
-
-## 1️⃣ Clone Repository
-
-```
-
----
-
 # 📊 Machine Learning Workflow
 
 1. Dataset preprocessing
